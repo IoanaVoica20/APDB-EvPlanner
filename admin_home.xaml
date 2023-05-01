@@ -1,0 +1,208 @@
+﻿<Window x:Class="PlanIVent.admin_home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlanIVent"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="admin_home" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="evenimenteViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Evenimente}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="15 0 0 15">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#558C8C" Offset="0" />
+                    <GradientStop Color="#3AADA1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Canvas>
+                    <Polygon Points="400,900 80,-110 -200,60" Fill="#3AADA1" Opacity="0.6"/>
+                    <Polygon Points="17,150 400,-130 -50,900" Fill="#231123" Opacity="0.8"/>
+                </Canvas>
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock Text="Welcome back!" 
+                               Style="{StaticResource titleText}"
+                               Margin="10"/>
+
+
+                    <Grid>
+                        <Polygon Points="20,20 300,20 300,200 20,200" 
+                                 Fill="#FBD1A2" 
+                                 Opacity="0.6" 
+                                 Panel.ZIndex="0"
+                        />
+
+                        <Image x:Name="MainImage"
+                               Source="images/deal.png" 
+                               Panel.ZIndex="1"
+                               Height="250"
+                        />
+
+                        <Button  
+                        Margin="20 -10"
+                        Height="50"
+                        Width="70"
+                        Content="GO"
+                        Click="Button_Click_Go" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource mainbutton}"
+                        Background="#FBD1A2"
+                            Panel.ZIndex="2"
+                    />
+
+                    </Grid>
+
+
+                    <TextBlock x:Name="MainOption"
+                               Text="[Human Resources]" 
+                               Style="{StaticResource normalText}"
+                               Margin="10"
+                               FontWeight="DemiBold"
+                    />
+
+                    <Button  
+                        Margin="5"
+                        Height="50"
+                        Width="100"
+                        Content="NEXT"
+                        Click="Button_Click" 
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource mainbutton}"
+                        Background="#FBD1A2"
+                    />
+
+                    <!--
+                            
+                            slider si imagini sus cu accesare calendar/ vezi personal
+                            in functie de ce alegi cu slider-ul mai e =>
+                            => un buton cu care accesezi pagina
+                            
+                            -->
+
+
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0">
+            <Grid>
+
+                <Canvas>
+                    <!--
+                                        <Polygon Points="400,900 80,-110 -200,60" Fill="#3AADA1" Opacity="0.6"/>
+
+                    -->
+                    <Polygon Points="0,0 500,0 500,60 0,60" Fill="#231123" Opacity="0.6"/>
+                    <Polygon Points="10,10 470,10 470,50 10,50" 
+                             Fill="#FBD1A2" Opacity="0.6"/>
+
+                </Canvas>
+
+                <TextBlock Text="Upcoming events:" 
+                               Style="{StaticResource onWhiteText}" 
+                               HorizontalAlignment="Left"
+                               Opacity="0.6" 
+                               Margin="20"
+                    />
+                <Border
+                    Margin="-20 -30"
+                    Width="800"
+                    Height="800">
+                    <Image Source="images/calendar.png"
+                           Opacity="0.2"
+                            HorizontalAlignment="Center"
+                           >
+
+                    </Image>
+                </Border>
+
+                <Grid x:Name="GridEvents">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" 
+                               x:Name="FirstRow" 
+                               Style="{StaticResource onWhiteText}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" 
+                               x:Name="SecondRow"
+                               Style="{StaticResource onWhiteText}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" 
+                               x:Name="ThirdRow"
+                               Style="{StaticResource onWhiteText}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="4" 
+                               x:Name="FourthRow"
+                               Style="{StaticResource onWhiteText}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" 
+                               x:Name="FifthRow"
+                               Style="{StaticResource onWhiteText}"
+                               VerticalAlignment="Center"/>
+
+                    <Border BorderThickness="1" Grid.Row="1"
+        CornerRadius="50,50,50,50" Background="#FBD1A2" Opacity="0.5">
+                    </Border>
+                    <Border BorderThickness="1" Grid.Row="2"
+        CornerRadius="50,50,50,50" Background="#FBD1A2" Opacity="0.5">
+                    </Border>
+                    <Border BorderThickness="1" Grid.Row="3"
+        CornerRadius="50,50,50,50" Background="#FBD1A2" Opacity="0.5">
+                    </Border>
+                    <Border BorderThickness="1" Grid.Row="4"
+        CornerRadius="50,50,50,50" Background="#FBD1A2" Opacity="0.5">
+                    </Border>
+                    <Border BorderThickness="1" Grid.Row="5"
+        CornerRadius="50,50,50,50" Background="#FBD1A2" Opacity="0.5">
+                    </Border>
+                </Grid>
+                <ComboBox HorizontalAlignment="Left" 
+                          Margin="62,394,0,0" 
+                          VerticalAlignment="Top" 
+                          Width="171" 
+                          Height="36"
+                          x:Name="home_choose_event"
+                          Background="Transparent"/>
+
+                <Button  
+                        Margin="20 10"
+                        Height="50"
+                        Width="150"
+                        Content="See Event Page"
+                        Click="Button_Click_See_Ev_Page" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource secondbutton}"
+                        Background="#FBD1A2"
+                    />
+                <!--
+                Urmeaza aici sa fie Upcoming events
+                lista cu ele
+                posibilitatea de a da click pe una si 
+                a fi directionat direct la pagina evenimentului
+                -->
+
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

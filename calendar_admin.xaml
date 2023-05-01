@@ -1,0 +1,144 @@
+﻿<Window x:Class="PlanIVent.calendar_admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlanIVent"
+         mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="admin_home" Height="450" Width="800">
+    <Grid>
+        <Border CornerRadius="15 15 15 15">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#558C8C" Offset="0" />
+                    <GradientStop Color="#3AADA1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Grid>
+            
+            <Canvas>
+                <Polygon Points="400,900 80,-110 -200,60" Fill="#3AADA1" Opacity="0.6"/>
+                <!--Polygon Points="17,150 400,-130 -50,900" Fill="#231123" Opacity="0.8"/-->
+            </Canvas>
+            <TextBlock Style="{StaticResource onWhiteText}" 
+                       Margin="100 20"
+                       HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    Events Calendar
+                </TextBlock.Text>
+
+            </TextBlock>
+
+            <Image Source="images/calendar.png"
+                           Opacity="0.1"
+                           HorizontalAlignment="Center"
+                           Margin="-20 -200"        
+                   >
+                
+            </Image>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Margin="0 80"
+                       Style="{StaticResource onWhiteText}">
+                <TextBlock.Text>
+                    Pick a date:
+                </TextBlock.Text>
+            </TextBlock>
+
+            <Viewbox>
+                <Calendar Margin="0 80"
+                          SelectionMode="SingleRange"
+                          x:Name="Calendar"
+                          SelectedDatesChanged="Calendar_SelectedDatesChanged">
+
+
+                </Calendar>
+            </Viewbox>
+
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.75*"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock
+                       x:Name="txtEventsOnData"
+                       Margin="20 20"
+                       Style="{StaticResource onWhiteText}"
+                       VerticalAlignment="top"
+                           HorizontalAlignment="Left">
+                    
+                </TextBlock>
+
+                <ScrollViewer  Grid.Row="1" Height="200" 
+                                   Background="#558C8C" 
+                                   Opacity="0.6"
+                                   Margin="20 0 20 150" 
+                                   VerticalAlignment="top"
+                                   HorizontalScrollBarVisibility="Visible">
+                    <Grid x:Name="calendarEvGrid" 
+                          Margin="0 0 0 0">
+                        <!--ShowGridLines="True"-->
+
+                        <!--Background="Transparent"-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel x:Name="stackBox">
+                            
+                        </StackPanel>
+                            
+
+                    </Grid>
+
+                    
+                    
+
+                </ScrollViewer>
+
+                <Button  
+                        Grid.Row="1"
+                        Margin="20 20"
+                        Height="50"
+                        Width="150"
+                        Content="Cancel Event"
+                        Click="Button_Click_Cancel_Event" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource secondbutton}"
+                        Background="#FBD1A2"
+                />
+
+                <Button  
+                        Grid.Row="1"
+                        Margin="20 80"
+                        Height="50"
+                        Width="150"
+                        Content="See Event"
+                        Click="Button_Click_See_Event" 
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Style="{StaticResource secondbutton}"
+                        Background="#FBD1A2"
+                />
+            </Grid>
+            
+        </Grid>
+        
+    </Grid>
+
+  
+</Window>

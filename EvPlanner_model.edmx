@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EvPlannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorii">
+          <Key>
+            <PropertyRef Name="ID_Categorie" />
+          </Key>
+          <Property Name="ID_Categorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categorii_Personal">
+          <Key>
+            <PropertyRef Name="ID_categorie" />
+          </Key>
+          <Property Name="ID_categorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clienti">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Prenume" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Varsta" Type="date" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="64" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Login" Type="int" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="ID_departament" />
+          </Key>
+          <Property Name="ID_departament" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Evenimente">
+          <Key>
+            <PropertyRef Name="ID_Eveniment" />
+          </Key>
+          <Property Name="ID_Eveniment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Data_Start" Type="date" Nullable="false" />
+          <Property Name="Data_Sfarsit" Type="date" Nullable="false" />
+          <Property Name="ID_Categorie" Type="int" />
+          <Property Name="ID_Locatie" Type="int" />
+          <Property Name="NrPersoane" Type="int" />
+          <Property Name="ID_Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Locatii">
+          <Key>
+            <PropertyRef Name="ID_Locatie" />
+          </Key>
+          <Property Name="ID_Locatie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="64" />
+          <Property Name="Pret" Type="money" Nullable="false" />
+          <Property Name="Judet" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="64" />
+          <Property Name="Nume_Proprietar" Type="nvarchar" MaxLength="64" />
+          <Property Name="Telefon_Proprietar" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID_cont" />
+          </Key>
+          <Property Name="ID_cont" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Conectat" Type="int" Nullable="false" />
+          <Property Name="Privilegiu" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Personal">
+          <Key>
+            <PropertyRef Name="ID_persoana" />
+          </Key>
+          <Property Name="ID_persoana" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_categorie" Type="int" Nullable="false" />
+          <Property Name="ID_departament" Type="int" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prenume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sarcini">
+          <Key>
+            <PropertyRef Name="ID_sarcina" />
+          </Key>
+          <Property Name="ID_sarcina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ID_eveniment" Type="int" Nullable="false" />
+          <Property Name="ID_Personal" Type="int" />
+        </EntityType>
+        <EntityType Name="Servicii">
+          <Key>
+            <PropertyRef Name="ID_serviciu" />
+          </Key>
+          <Property Name="ID_serviciu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_categorie_Ev" Type="int" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pret" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EvPlanner.dbo.Servicii_Eveniment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Servicii_Eveniment">
+          <Key>
+            <PropertyRef Name="ID_serviciu" />
+            <PropertyRef Name="ID_eveniment" />
+          </Key>
+          <Property Name="ID_serviciu" Type="int" Nullable="false" />
+          <Property Name="ID_eveniment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status_Ev">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Denumire" Type="nvarchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_categorie">
+          <End Role="Categorii_Personal" Type="Self.Categorii_Personal" Multiplicity="1" />
+          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii_Personal">
+              <PropertyRef Name="ID_categorie" />
+            </Principal>
+            <Dependent Role="Personal">
+              <PropertyRef Name="ID_categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategorieEv">
+          <End Role="Categorii" Type="Self.Categorii" Multiplicity="1" />
+          <End Role="Servicii" Type="Self.Servicii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii">
+              <PropertyRef Name="ID_Categorie" />
+            </Principal>
+            <Dependent Role="Servicii">
+              <PropertyRef Name="ID_categorie_Ev" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="ID_departament" />
+            </Principal>
+            <Dependent Role="Personal">
+              <PropertyRef Name="ID_departament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_evenimente">
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="1" />
+          <End Role="Servicii_Eveniment" Type="Self.Servicii_Eveniment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenimente">
+              <PropertyRef Name="ID_Eveniment" />
+            </Principal>
+            <Dependent Role="Servicii_Eveniment">
+              <PropertyRef Name="ID_eveniment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Categorie">
+          <End Role="Categorii" Type="Self.Categorii" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii">
+              <PropertyRef Name="ID_Categorie" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Locatie">
+          <End Role="Locatii" Type="Self.Locatii" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locatii">
+              <PropertyRef Name="ID_Locatie" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Locatie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Personal">
+          <End Role="Personal" Type="Self.Personal" Multiplicity="0..1" />
+          <End Role="Sarcini" Type="Self.Sarcini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="ID_persoana" />
+            </Principal>
+            <Dependent Role="Sarcini">
+              <PropertyRef Name="ID_Personal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Status">
+          <End Role="Status_Ev" Type="Self.Status_Ev" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status_Ev">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDeveniment">
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="1" />
+          <End Role="Sarcini" Type="Self.Sarcini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenimente">
+              <PropertyRef Name="ID_Eveniment" />
+            </Principal>
+            <Dependent Role="Sarcini">
+              <PropertyRef Name="ID_eveniment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="Clienti" Type="Self.Clienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="ID_cont" />
+            </Principal>
+            <Dependent Role="Clienti">
+              <PropertyRef Name="ID_Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_serviciu">
+          <End Role="Servicii" Type="Self.Servicii" Multiplicity="1" />
+          <End Role="Servicii_Eveniment" Type="Self.Servicii_Eveniment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicii">
+              <PropertyRef Name="ID_serviciu" />
+            </Principal>
+            <Dependent Role="Servicii_Eveniment">
+              <PropertyRef Name="ID_serviciu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="EvPlannerModelStoreContainer">
+          <EntitySet Name="Categorii" EntityType="Self.Categorii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorii_Personal" EntityType="Self.Categorii_Personal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clienti" EntityType="Self.Clienti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evenimente" EntityType="Self.Evenimente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locatii" EntityType="Self.Locatii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personal" EntityType="Self.Personal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sarcini" EntityType="Self.Sarcini" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicii" EntityType="Self.Servicii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status_Ev" EntityType="Self.Status_Ev" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicii_Eveniment" EntityType="Self.Servicii_Eveniment" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Servicii_Eveniment].[ID_serviciu] AS [ID_serviciu], 
+    [Servicii_Eveniment].[ID_eveniment] AS [ID_eveniment]
+    FROM [dbo].[Servicii_Eveniment] AS [Servicii_Eveniment]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_categorie" Association="Self.FK_categorie">
+            <End Role="Categorii_Personal" EntitySet="Categorii_Personal" />
+            <End Role="Personal" EntitySet="Personal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategorieEv" Association="Self.FK_CategorieEv">
+            <End Role="Categorii" EntitySet="Categorii" />
+            <End Role="Servicii" EntitySet="Servicii" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departament" Association="Self.FK_departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Personal" EntitySet="Personal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_evenimente" Association="Self.FK_evenimente">
+            <End Role="Evenimente" EntitySet="Evenimente" />
+            <End Role="Servicii_Eveniment" EntitySet="Servicii_Eveniment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Categorie" Association="Self.FK_ID_Categorie">
+            <End Role="Categorii" EntitySet="Categorii" />
+            <End Role="Evenimente" EntitySet="Evenimente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Locatie" Association="Self.FK_ID_Locatie">
+            <End Role="Locatii" EntitySet="Locatii" />
+            <End Role="Evenimente" EntitySet="Evenimente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Personal" Association="Self.FK_ID_Personal">
+            <End Role="Personal" EntitySet="Personal" />
+            <End Role="Sarcini" EntitySet="Sarcini" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Status" Association="Self.FK_ID_Status">
+            <End Role="Status_Ev" EntitySet="Status_Ev" />
+            <End Role="Evenimente" EntitySet="Evenimente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDeveniment" Association="Self.FK_IDeveniment">
+            <End Role="Evenimente" EntitySet="Evenimente" />
+            <End Role="Sarcini" EntitySet="Sarcini" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login" Association="Self.FK_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Clienti" EntitySet="Clienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_serviciu" Association="Self.FK_serviciu">
+            <End Role="Servicii" EntitySet="Servicii" />
+            <End Role="Servicii_Eveniment" EntitySet="Servicii_Eveniment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EvPlannerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorii">
+          <Key>
+            <PropertyRef Name="ID_Categorie" />
+          </Key>
+          <Property Name="ID_Categorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Evenimentes" Relationship="Self.FK_ID_Categorie" FromRole="Categorii" ToRole="Evenimente" />
+          <NavigationProperty Name="Serviciis" Relationship="EvPlannerModel.FK_CategorieEv" FromRole="Categorii" ToRole="Servicii" />
+        </EntityType>
+        <EntityType Name="Categorii_Personal">
+          <Key>
+            <PropertyRef Name="ID_categorie" />
+          </Key>
+          <Property Name="ID_categorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Personals" Relationship="Self.FK_categorie" FromRole="Categorii_Personal" ToRole="Personal" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="ID_departament" />
+          </Key>
+          <Property Name="ID_departament" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Personals" Relationship="Self.FK_departament" FromRole="Departament" ToRole="Personal" />
+        </EntityType>
+        <EntityType Name="Evenimente">
+          <Key>
+            <PropertyRef Name="ID_Eveniment" />
+          </Key>
+          <Property Name="ID_Eveniment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Data_Start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Data_Sfarsit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_Categorie" Type="Int32" />
+          <Property Name="ID_Locatie" Type="Int32" />
+          <Property Name="NrPersoane" Type="Int32" />
+          <Property Name="ID_Status" Type="Int32" />
+          <NavigationProperty Name="Categorii" Relationship="Self.FK_ID_Categorie" FromRole="Evenimente" ToRole="Categorii" />
+          <NavigationProperty Name="Locatii" Relationship="Self.FK_ID_Locatie" FromRole="Evenimente" ToRole="Locatii" />
+          <NavigationProperty Name="Status_Ev" Relationship="Self.FK_ID_Status" FromRole="Evenimente" ToRole="Status_Ev" />
+          <NavigationProperty Name="Sarcinis" Relationship="Self.FK_IDeveniment" FromRole="Evenimente" ToRole="Sarcini" />
+          <NavigationProperty Name="Serviciis" Relationship="EvPlannerModel.Servicii_Eveniment" FromRole="Evenimente" ToRole="Servicii" />
+        </EntityType>
+        <EntityType Name="Locatii">
+          <Key>
+            <PropertyRef Name="ID_Locatie" />
+          </Key>
+          <Property Name="ID_Locatie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Pret" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Judet" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresa" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Nume_Proprietar" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon_Proprietar" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Evenimentes" Relationship="Self.FK_ID_Locatie" FromRole="Locatii" ToRole="Evenimente" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID_cont" />
+          </Key>
+          <Property Name="ID_cont" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Conectat" Type="Int32" Nullable="false" />
+          <Property Name="Privilegiu" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clientis" Relationship="EvPlannerModel.FK_Login" FromRole="Login" ToRole="Clienti" />
+        </EntityType>
+        <EntityType Name="Personal">
+          <Key>
+            <PropertyRef Name="ID_persoana" />
+          </Key>
+          <Property Name="ID_persoana" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_categorie" Type="Int32" Nullable="false" />
+          <Property Name="ID_departament" Type="Int32" Nullable="false" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Categorii_Personal" Relationship="Self.FK_categorie" FromRole="Personal" ToRole="Categorii_Personal" />
+          <NavigationProperty Name="Departament" Relationship="Self.FK_departament" FromRole="Personal" ToRole="Departament" />
+          <NavigationProperty Name="Sarcinis1" Relationship="EvPlannerModel.FK_ID_Personal" FromRole="Personal" ToRole="Sarcini" />
+        </EntityType>
+        <EntityType Name="Sarcini">
+          <Key>
+            <PropertyRef Name="ID_sarcina" />
+          </Key>
+          <Property Name="ID_sarcina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_eveniment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Evenimente" Relationship="Self.FK_IDeveniment" FromRole="Sarcini" ToRole="Evenimente" />
+          <Property Name="ID_Personal" Type="Int32" />
+          <NavigationProperty Name="Personal" Relationship="EvPlannerModel.FK_ID_Personal" FromRole="Sarcini" ToRole="Personal" />
+        </EntityType>
+        <EntityType Name="Status_Ev">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Denumire" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Evenimentes" Relationship="Self.FK_ID_Status" FromRole="Status_Ev" ToRole="Evenimente" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_ID_Categorie">
+          <End Role="Categorii" Type="Self.Categorii" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii">
+              <PropertyRef Name="ID_Categorie" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_categorie">
+          <End Role="Categorii_Personal" Type="Self.Categorii_Personal" Multiplicity="1" />
+          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii_Personal">
+              <PropertyRef Name="ID_categorie" />
+            </Principal>
+            <Dependent Role="Personal">
+              <PropertyRef Name="ID_categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="Personal" Type="Self.Personal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="ID_departament" />
+            </Principal>
+            <Dependent Role="Personal">
+              <PropertyRef Name="ID_departament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Locatie">
+          <End Role="Locatii" Type="Self.Locatii" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locatii">
+              <PropertyRef Name="ID_Locatie" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Locatie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ID_Status">
+          <End Role="Status_Ev" Type="Self.Status_Ev" Multiplicity="0..1" />
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status_Ev">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Evenimente">
+              <PropertyRef Name="ID_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDeveniment">
+          <End Role="Evenimente" Type="Self.Evenimente" Multiplicity="1" />
+          <End Role="Sarcini" Type="Self.Sarcini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evenimente">
+              <PropertyRef Name="ID_Eveniment" />
+            </Principal>
+            <Dependent Role="Sarcini">
+              <PropertyRef Name="ID_eveniment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EvPlannerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoriis" EntityType="Self.Categorii" />
+          <EntitySet Name="Categorii_Personal" EntityType="Self.Categorii_Personal" />
+          <EntitySet Name="Departaments" EntityType="Self.Departament" />
+          <EntitySet Name="Evenimentes" EntityType="Self.Evenimente" />
+          <EntitySet Name="Locatiis" EntityType="Self.Locatii" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Personals" EntityType="Self.Personal" />
+          <EntitySet Name="Sarcinis" EntityType="Self.Sarcini" />
+          <EntitySet Name="Status_Ev" EntityType="Self.Status_Ev" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_ID_Categorie" Association="Self.FK_ID_Categorie">
+            <End Role="Categorii" EntitySet="Categoriis" />
+            <End Role="Evenimente" EntitySet="Evenimentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_categorie" Association="Self.FK_categorie">
+            <End Role="Categorii_Personal" EntitySet="Categorii_Personal" />
+            <End Role="Personal" EntitySet="Personals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departament" Association="Self.FK_departament">
+            <End Role="Departament" EntitySet="Departaments" />
+            <End Role="Personal" EntitySet="Personals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Locatie" Association="Self.FK_ID_Locatie">
+            <End Role="Locatii" EntitySet="Locatiis" />
+            <End Role="Evenimente" EntitySet="Evenimentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Status" Association="Self.FK_ID_Status">
+            <End Role="Status_Ev" EntitySet="Status_Ev" />
+            <End Role="Evenimente" EntitySet="Evenimentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDeveniment" Association="Self.FK_IDeveniment">
+            <End Role="Evenimente" EntitySet="Evenimentes" />
+            <End Role="Sarcini" EntitySet="Sarcinis" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(EvPlannerModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(EvPlannerModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Clientis" EntityType="EvPlannerModel.Clienti" />
+          <EntitySet Name="Serviciis" EntityType="EvPlannerModel.Servicii" />
+          <AssociationSet Name="FK_CategorieEv" Association="EvPlannerModel.FK_CategorieEv">
+            <End Role="Categorii" EntitySet="Categoriis" />
+            <End Role="Servicii" EntitySet="Serviciis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login" Association="EvPlannerModel.FK_Login">
+            <End Role="Login" EntitySet="Logins" />
+            <End Role="Clienti" EntitySet="Clientis" />
+          </AssociationSet>
+          <AssociationSet Name="Servicii_Eveniment" Association="EvPlannerModel.Servicii_Eveniment">
+            <End Role="Evenimente" EntitySet="Evenimentes" />
+            <End Role="Servicii" EntitySet="Serviciis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ID_Personal" Association="EvPlannerModel.FK_ID_Personal">
+            <End Role="Personal" EntitySet="Personals" />
+            <End Role="Sarcini" EntitySet="Sarcinis" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Clienti">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Prenume" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Varsta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Adresa" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Login" Type="Int32" />
+          <NavigationProperty Name="Login" Relationship="EvPlannerModel.FK_Login" FromRole="Clienti" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="Servicii">
+          <Key>
+            <PropertyRef Name="ID_serviciu" />
+          </Key>
+          <Property Name="ID_serviciu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_categorie_Ev" Type="Int32" Nullable="false" />
+          <Property Name="Denumire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pret" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Categorii" Relationship="EvPlannerModel.FK_CategorieEv" FromRole="Servicii" ToRole="Categorii" />
+          <NavigationProperty Name="Evenimentes" Relationship="EvPlannerModel.Servicii_Eveniment" FromRole="Servicii" ToRole="Evenimente" />
+        </EntityType>
+        <Association Name="FK_CategorieEv">
+          <End Type="EvPlannerModel.Categorii" Role="Categorii" Multiplicity="1" />
+          <End Type="EvPlannerModel.Servicii" Role="Servicii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii">
+              <PropertyRef Name="ID_Categorie" />
+            </Principal>
+            <Dependent Role="Servicii">
+              <PropertyRef Name="ID_categorie_Ev" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login">
+          <End Type="EvPlannerModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="EvPlannerModel.Clienti" Role="Clienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="ID_cont" />
+            </Principal>
+            <Dependent Role="Clienti">
+              <PropertyRef Name="ID_Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Servicii_Eveniment">
+          <End Type="EvPlannerModel.Evenimente" Role="Evenimente" Multiplicity="*" />
+          <End Type="EvPlannerModel.Servicii" Role="Servicii" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_ID_Personal">
+          <End Type="EvPlannerModel.Personal" Role="Personal" Multiplicity="0..1" />
+          <End Type="EvPlannerModel.Sarcini" Role="Sarcini" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personal">
+              <PropertyRef Name="ID_persoana" />
+            </Principal>
+            <Dependent Role="Sarcini">
+              <PropertyRef Name="ID_Personal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EvPlannerModelStoreContainer" CdmEntityContainer="EvPlannerEntities">
+          <EntitySetMapping Name="Categoriis">
+            <EntityTypeMapping TypeName="EvPlannerModel.Categorii">
+              <MappingFragment StoreEntitySet="Categorii">
+                <ScalarProperty Name="ID_Categorie" ColumnName="ID_Categorie" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorii_Personal">
+            <EntityTypeMapping TypeName="EvPlannerModel.Categorii_Personal">
+              <MappingFragment StoreEntitySet="Categorii_Personal">
+                <ScalarProperty Name="ID_categorie" ColumnName="ID_categorie" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departaments">
+            <EntityTypeMapping TypeName="EvPlannerModel.Departament">
+              <MappingFragment StoreEntitySet="Departament">
+                <ScalarProperty Name="ID_departament" ColumnName="ID_departament" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evenimentes">
+            <EntityTypeMapping TypeName="EvPlannerModel.Evenimente">
+              <MappingFragment StoreEntitySet="Evenimente">
+                <ScalarProperty Name="ID_Eveniment" ColumnName="ID_Eveniment" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="Data_Start" ColumnName="Data_Start" />
+                <ScalarProperty Name="Data_Sfarsit" ColumnName="Data_Sfarsit" />
+                <ScalarProperty Name="ID_Categorie" ColumnName="ID_Categorie" />
+                <ScalarProperty Name="ID_Locatie" ColumnName="ID_Locatie" />
+                <ScalarProperty Name="NrPersoane" ColumnName="NrPersoane" />
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locatiis">
+            <EntityTypeMapping TypeName="EvPlannerModel.Locatii">
+              <MappingFragment StoreEntitySet="Locatii">
+                <ScalarProperty Name="ID_Locatie" ColumnName="ID_Locatie" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="Pret" ColumnName="Pret" />
+                <ScalarProperty Name="Judet" ColumnName="Judet" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Nume_Proprietar" ColumnName="Nume_Proprietar" />
+                <ScalarProperty Name="Telefon_Proprietar" ColumnName="Telefon_Proprietar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="EvPlannerModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Privilegiu" ColumnName="Privilegiu" />
+                <ScalarProperty Name="ID_cont" ColumnName="ID_cont" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="Conectat" ColumnName="Conectat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personals">
+            <EntityTypeMapping TypeName="EvPlannerModel.Personal">
+              <MappingFragment StoreEntitySet="Personal">
+                <ScalarProperty Name="ID_persoana" ColumnName="ID_persoana" />
+                <ScalarProperty Name="ID_categorie" ColumnName="ID_categorie" />
+                <ScalarProperty Name="ID_departament" ColumnName="ID_departament" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sarcinis">
+            <EntityTypeMapping TypeName="EvPlannerModel.Sarcini">
+              <MappingFragment StoreEntitySet="Sarcini">
+                <ScalarProperty Name="ID_Personal" ColumnName="ID_Personal" />
+                <ScalarProperty Name="ID_sarcina" ColumnName="ID_sarcina" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="ID_eveniment" ColumnName="ID_eveniment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status_Ev">
+            <EntityTypeMapping TypeName="EvPlannerModel.Status_Ev">
+              <MappingFragment StoreEntitySet="Status_Ev">
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EvPlannerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="EvPlannerModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="EvPlannerModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="EvPlannerModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="EvPlannerModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EvPlannerModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="EvPlannerModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EvPlannerModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EvPlannerModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EvPlannerModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Clientis">
+            <EntityTypeMapping TypeName="EvPlannerModel.Clienti">
+              <MappingFragment StoreEntitySet="Clienti">
+                <ScalarProperty Name="ID_Login" ColumnName="ID_Login" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Varsta" ColumnName="Varsta" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Serviciis">
+            <EntityTypeMapping TypeName="EvPlannerModel.Servicii">
+              <MappingFragment StoreEntitySet="Servicii">
+                <ScalarProperty Name="Pret" ColumnName="Pret" />
+                <ScalarProperty Name="Denumire" ColumnName="Denumire" />
+                <ScalarProperty Name="ID_categorie_Ev" ColumnName="ID_categorie_Ev" />
+                <ScalarProperty Name="ID_serviciu" ColumnName="ID_serviciu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Servicii_Eveniment" TypeName="EvPlannerModel.Servicii_Eveniment" StoreEntitySet="Servicii_Eveniment">
+            <EndProperty Name="Servicii">
+              <ScalarProperty Name="ID_serviciu" ColumnName="ID_serviciu" />
+            </EndProperty>
+            <EndProperty Name="Evenimente">
+              <ScalarProperty Name="ID_Eveniment" ColumnName="ID_eveniment" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

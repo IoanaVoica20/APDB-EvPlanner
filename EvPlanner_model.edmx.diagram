@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4e1d090d84a74df1bc3d28c04f78207c" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="EvPlannerModel.Categorii" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Categorii_Personal" Width="1.5" PointX="0.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Departament" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Evenimente" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Locatii" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Login" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Personal" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Sarcini" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.Status_Ev" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvPlannerModel.sysdiagram" Width="1.5" PointX="2.75" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="EvPlannerModel.FK_ID_Categorie" ManuallyRouted="false" />
+        <AssociationConnector Association="EvPlannerModel.FK_categorie" ManuallyRouted="false" />
+        <AssociationConnector Association="EvPlannerModel.FK_departament" ManuallyRouted="false" />
+        <AssociationConnector Association="EvPlannerModel.FK_ID_Locatie" ManuallyRouted="false" />
+        <AssociationConnector Association="EvPlannerModel.FK_ID_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="EvPlannerModel.FK_IDeveniment" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EvPlannerModel.Clienti" Width="1.5" PointX="8" PointY="6.625" />
+        <EntityTypeShape EntityType="EvPlannerModel.Servicii" Width="1.5" PointX="8.25" PointY="3.75" />
+        <AssociationConnector Association="EvPlannerModel.FK_CategorieEv" />
+        <AssociationConnector Association="EvPlannerModel.FK_Login" />
+        <AssociationConnector Association="EvPlannerModel.Servicii_Eveniment" />
+        <AssociationConnector Association="EvPlannerModel.FK_ID_Personal" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
